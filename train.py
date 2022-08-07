@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# line added for rsync triggering again
+
 """Trains Karras et al. (2022) diffusion models."""
 
 import argparse
@@ -18,7 +20,6 @@ from tqdm.auto import trange, tqdm
 from functools import partial
 
 import k_diffusion as K
-
 
 def main():
     p = argparse.ArgumentParser(description=__doc__,
@@ -124,8 +125,9 @@ def main():
     tf = transforms.Compose([
         transforms.Resize(size[0], interpolation=transforms.InterpolationMode.LANCZOS),
         transforms.CenterCrop(size[0]),
-        K.augmentation.KarrasAugmentationPipeline(model_config['augment_prob']),
+        K.augmentation.KarrasAugmentationPipeline(model_config['augment_prob'])
     ])
+   
 
     if dataset_config['type'] == 'imagefolder':
         train_set = datasets.ImageFolder(dataset_config['location'], transform=tf)

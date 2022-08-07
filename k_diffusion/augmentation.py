@@ -42,6 +42,7 @@ class KarrasAugmentationPipeline:
 
         # x-flip
         a0 = torch.randint(2, []).float()
+        if self.a_prob < 1e-14: a0 *= 0  # turn off x-flip
         mats.append(scale2d(1 - 2 * a0, 1))
         # y-flip
         do = (torch.rand([]) < self.a_prob).float()
